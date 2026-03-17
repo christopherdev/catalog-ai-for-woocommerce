@@ -117,7 +117,7 @@ $products   = wc_get_products( [ 'limit' => 100, 'status' => 'publish' ] );
 								<div class="catalog-ai-product-card-info">
 									<strong class="catalog-ai-product-card-name"><?php echo esc_html( $product->get_name() ); ?></strong>
 									<span class="catalog-ai-product-card-sku">SKU: <?php echo esc_html( $sku ); ?></span>
-									<span class="catalog-ai-product-card-price"><?php echo $price; ?></span>
+									<span class="catalog-ai-product-card-price"><?php echo wp_kses_post( $price ); ?></span>
 								</div>
 							</div>
 						<?php endforeach; ?>

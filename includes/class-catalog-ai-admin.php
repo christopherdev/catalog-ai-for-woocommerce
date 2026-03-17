@@ -129,8 +129,14 @@ class Catalog_AI_Admin {
 		add_settings_field(
 			$option_name,
 			$label,
-			function () use ( $option_name, $type, $default ) {
+			function () use ( $option_name, $key, $type, $default ) {
 				$value = get_option( $option_name, $default );
+
+				// Decrypt encrypted values for display in the form.
+				if ( 'json' === $type ) {
+					$value = Catalog_AI_API_Client::decrypt_option( $key );
+				}
+
 				if ( 'textarea' === $type || 'json' === $type ) {
 					echo '<textarea name="' . esc_attr( $option_name ) . '" rows="6" cols="60" class="large-text code">' . esc_textarea( $value ) . '</textarea>';
 				} else {
@@ -170,7 +176,10 @@ class Catalog_AI_Admin {
 		}
 
 		// Re-encode to ensure clean JSON with proper escaping (preserves \n in private_key).
-		return wp_json_encode( $decoded, JSON_UNESCAPED_SLASHES );
+		$clean_json = wp_json_encode( $decoded, JSON_UNESCAPED_SLASHES );
+
+		// Encrypt before storing in the database.
+		return Catalog_AI_API_Client::encrypt_option( $clean_json );
 	}
 
 	/**

@@ -153,6 +153,12 @@ class Catalog_AI_Webhook {
 	 * @return string|null Raw image bytes or null on failure.
 	 */
 	private function fetch_from_gcs( string $gcs_uri ): ?string {
+		// Validate the URI strictly: must start with gs:// and contain only safe characters.
+		if ( ! preg_match( '#^gs://[a-z0-9][a-z0-9._-]{1,61}[a-z0-9]/[a-zA-Z0-9._/%-]+$#', $gcs_uri ) ) {
+			Catalog_AI_Queue::log( 'fetch_from_gcs: rejected invalid GCS URI — ' . $gcs_uri );
+			return null;
+		}
+
 		// Convert gs://bucket/object to https://storage.googleapis.com/bucket/object
 		$uri = str_replace( 'gs://', 'https://storage.googleapis.com/', $gcs_uri );
 

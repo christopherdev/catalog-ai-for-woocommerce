@@ -127,6 +127,19 @@ define( 'WP_DEBUG_DISPLAY', false );
 
 Logs are written to `wp-content/debug.log` with the `[Catalog AI]` prefix.
 
+## Disclaimer
+
+**This plugin connects to Google Cloud Vertex AI, a paid third-party service.** Every image generation request incurs costs on your Google Cloud account. You are solely responsible for:
+
+- Any charges incurred through the Google Cloud Vertex AI API.
+- Managing your own API credentials, billing limits, and usage quotas.
+- Reviewing and complying with [Google Cloud's Terms of Service](https://cloud.google.com/terms) and [Acceptable Use Policy](https://cloud.google.com/terms/aup).
+- Ensuring generated images comply with applicable laws and regulations in your jurisdiction.
+
+The author of this plugin provides it **"as-is" without warranty of any kind**, express or implied. **The author assumes no liability** for any costs, damages, or losses arising from the use of this plugin, including but not limited to unexpected API charges, service outages, or generated content. Use at your own risk.
+
+It is strongly recommended to set up [billing alerts](https://cloud.google.com/billing/docs/how-to/budgets) and API quota limits in your Google Cloud Console before using this plugin in production.
+
 ## License
 
 GPL-2.0-or-later

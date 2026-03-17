@@ -68,7 +68,7 @@ class Catalog_AI_API_Client {
 			return $cached;
 		}
 
-		$service_account_json = get_option( CATALOG_AI_OPTION_PREFIX . 'service_account_key', '' );
+		$service_account_json = self::decrypt_option( 'service_account_key' );
 		if ( empty( $service_account_json ) ) {
 			return new \WP_Error( 'catalog_ai_no_credentials', __( 'Google Cloud service account key is not configured.', 'catalog-ai' ) );
 		}
@@ -305,6 +305,62 @@ class Catalog_AI_API_Client {
 	 */
 	public function is_configured(): bool {
 		return ! empty( $this->project_id ) && ! empty( get_option( CATALOG_AI_OPTION_PREFIX . 'service_account_key', '' ) );
+	}
+
+	/**
+	 * Encrypt a value before storing in wp_options.
+	 *
+	 * Uses AES-256-CBC with a key derived from AUTH_KEY (wp-config.php).
+	 * Falls back to plain text if OpenSSL is unavailable.
+	 */
+	public static function encrypt_option( string $plain_text ): string {
+		if ( ! function_exists( 'openssl_encrypt' ) || ! defined( 'AUTH_KEY' ) ) {
+			return $plain_text;
+		}
+
+		$key = hash( 'sha256', AUTH_KEY . 'catalog_ai_encryption', true );
+		$iv  = openssl_random_pseudo_bytes( 16 );
+
+		$encrypted = openssl_encrypt( $plain_text, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv );
+		if ( false === $encrypted ) {
+			return $plain_text;
+		}
+
+		return 'enc:' . base64_encode( $iv . $encrypted );
+	}
+
+	/**
+	 * Decrypt a value stored in wp_options.
+	 *
+	 * @param string $option_key The option key (without prefix).
+	 * @return string Decrypted value or empty string.
+	 */
+	public static function decrypt_option( string $option_key ): string {
+		$value = get_option( CATALOG_AI_OPTION_PREFIX . $option_key, '' );
+		if ( empty( $value ) ) {
+			return '';
+		}
+
+		// Not encrypted (legacy or fallback) — return as-is.
+		if ( ! str_starts_with( $value, 'enc:' ) ) {
+			return $value;
+		}
+
+		if ( ! function_exists( 'openssl_decrypt' ) || ! defined( 'AUTH_KEY' ) ) {
+			return '';
+		}
+
+		$key  = hash( 'sha256', AUTH_KEY . 'catalog_ai_encryption', true );
+		$data = base64_decode( substr( $value, 4 ) );
+		if ( strlen( $data ) < 17 ) {
+			return '';
+		}
+
+		$iv        = substr( $data, 0, 16 );
+		$encrypted = substr( $data, 16 );
+
+		$decrypted = openssl_decrypt( $encrypted, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv );
+		return false !== $decrypted ? $decrypted : '';
 	}
 
 	/**
