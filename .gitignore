@@ -1,0 +1,31 @@
+# Test / dev artifacts
+test.json
+result.png
+
+# Dependencies (install via composer)
+vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# WordPress
+wp-config.php
+wp-content/uploads/
+
+# Environment
+.env
+.env.*
+
+# Composer
+composer.lock
+
+# Node (if added later)
+node_modules/
+package-lock.json

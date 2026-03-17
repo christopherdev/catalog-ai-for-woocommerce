@@ -1,0 +1,266 @@
+/* Catalog AI — Admin Styles */
+
+/* Three-column layout */
+.catalog-ai-layout {
+	display: flex;
+	gap: 16px;
+	align-items: flex-start;
+	margin-top: 20px;
+}
+
+.catalog-ai-col-left {
+	width: 340px;
+	flex-shrink: 0;
+}
+
+.catalog-ai-col-center {
+	flex: 1;
+	min-width: 0;
+	/* max-width: 600px; */
+}
+
+.catalog-ai-col-right {
+	width: 260px;
+	flex-shrink: 0;
+}
+
+.card{
+	max-width: 100% !important;
+}
+
+.catalog-ai-col-left input textarea select{
+	width: 100% !important;
+}
+
+@media screen and (max-width: 1400px) {
+	.catalog-ai-col-left {
+		width: 280px;
+	}
+	.catalog-ai-col-right {
+		width: 240px;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.catalog-ai-layout {
+		flex-wrap: wrap;
+	}
+	.catalog-ai-col-left {
+		width: 100%;
+	}
+	.catalog-ai-col-center {
+		width: 100%;
+		flex: unset;
+	}
+	.catalog-ai-col-right {
+		width: 100%;
+	}
+}
+
+/* Cards */
+.catalog-ai-dashboard .catalog-ai-card {
+	padding: 20px;
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.catalog-ai-dashboard .catalog-ai-card h2 {
+	margin-top: 0;
+}
+
+/* Products card — viewport-constrained with overflow */
+.catalog-ai-products-card {
+	display: flex;
+	flex-direction: column;
+	max-height: calc(100vh - 100px);
+}
+
+.catalog-ai-products-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-shrink: 0;
+	margin-bottom: 8px;
+}
+
+.catalog-ai-products-header h2 {
+	margin: 0 !important;
+}
+
+.catalog-ai-selected-count {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+.catalog-ai-product-grid {
+	overflow-y: auto;
+	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+	gap: 12px;
+	padding: 4px;
+	align-content: flex-start;
+}
+
+/* Product cards */
+.catalog-ai-product-card {
+	position: relative;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	padding: 10px;
+	cursor: pointer;
+	transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+	background: #fff;
+	text-align: center;
+}
+
+.catalog-ai-product-card:hover {
+	border-color: #999;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	transform: translateY(-1px);
+}
+
+.catalog-ai-product-card.selected {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1, 0 2px 8px rgba(34, 113, 177, 0.15);
+	background: #f0f6fc;
+}
+
+/* Checkmark */
+.catalog-ai-product-card-check {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	display: none;
+	color: #2271b1;
+}
+
+.catalog-ai-product-card-check .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+}
+
+.catalog-ai-product-card.selected .catalog-ai-product-card-check {
+	display: block;
+}
+
+/* Product image */
+.catalog-ai-product-card-image {
+	width: 100%;
+	aspect-ratio: 1;
+	overflow: hidden;
+	border-radius: 4px;
+	margin-bottom: 8px;
+	background: #f6f7f7;
+}
+
+.catalog-ai-product-card-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Product info */
+.catalog-ai-product-card-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.catalog-ai-product-card-name {
+	font-size: 12px;
+	line-height: 1.3;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.catalog-ai-product-card-sku {
+	font-size: 11px;
+	color: #888;
+}
+
+.catalog-ai-product-card-price {
+	font-size: 12px;
+	color: #2271b1;
+	margin-top: 2px;
+}
+
+/* Left column form table — labels top, fields bottom */
+.catalog-ai-col-left .form-table,
+.catalog-ai-col-left .form-table tbody,
+.catalog-ai-col-left .form-table tr,
+.catalog-ai-col-left .form-table th,
+.catalog-ai-col-left .form-table td {
+	display: block;
+	width: 100%;
+}
+
+.catalog-ai-col-left .form-table th {
+	padding: 10px 0 2px 0;
+	font-weight: 600;
+}
+
+.catalog-ai-col-left .form-table select,
+.catalog-ai-col-left .form-table textarea,
+.catalog-ai-col-left .form-table input[type="text"] {
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.catalog-ai-col-left .card {
+	overflow: hidden;
+}
+
+.catalog-ai-col-left .form-table td {
+	padding: 0 0 12px 0;
+}
+
+/* Jobs table */
+#catalog-ai-jobs table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#catalog-ai-jobs th,
+#catalog-ai-jobs td {
+	text-align: left;
+	padding: 6px 8px;
+	border-bottom: 1px solid #ddd;
+	font-size: 12px;
+}
+
+/* Status colors */
+.catalog-ai-status-pending {
+	color: #996800;
+}
+
+.catalog-ai-status-processing {
+	color: #0073aa;
+}
+
+.catalog-ai-status-completed {
+	color: #46b450;
+}
+
+.catalog-ai-status-failed {
+	color: #dc3232;
+}
+
+/* Sidebar tables */
+.catalog-ai-col-right .widefat {
+	width: 100%;
+}
+
+.catalog-ai-col-right .widefat th,
+.catalog-ai-col-right .widefat td {
+	font-size: 12px;
+	padding: 6px 8px;
+}
