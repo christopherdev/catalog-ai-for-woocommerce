@@ -390,6 +390,7 @@ class Catalog_AI_API_Client {
 			$usage[ $month ] = [
 				self::MODE_TRY_ON    => [ 'count' => 0, 'cost' => 0.0 ],
 				self::MODE_RECONTEXT => [ 'count' => 0, 'cost' => 0.0 ],
+				self::MODE_BGSWAP    => [ 'count' => 0, 'cost' => 0.0 ],
 			];
 		}
 
@@ -420,6 +421,7 @@ class Catalog_AI_API_Client {
 			return $usage[ $month ] ?? [
 				self::MODE_TRY_ON    => [ 'count' => 0, 'cost' => 0.0 ],
 				self::MODE_RECONTEXT => [ 'count' => 0, 'cost' => 0.0 ],
+				self::MODE_BGSWAP    => [ 'count' => 0, 'cost' => 0.0 ],
 			];
 		}
 

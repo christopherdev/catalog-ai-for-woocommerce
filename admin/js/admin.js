@@ -196,6 +196,7 @@
 		}).then(function (data) {
 			const tryOn = data.breakdown.try_on || { count: 0, cost: 0 };
 			const recon = data.breakdown.recontext || { count: 0, cost: 0 };
+			const bgSwap = data.breakdown.bgswap || { count: 0, cost: 0 };
 
 			$('#catalog-ai-usage').html(
 				'<table class="widefat striped">' +
@@ -204,6 +205,7 @@
 				'</tr></thead><tbody>' +
 				'<tr><td>Try-On</td><td>' + tryOn.count + '</td><td>$' + tryOn.cost.toFixed(2) + '</td></tr>' +
 				'<tr><td>Recontext</td><td>' + recon.count + '</td><td>$' + recon.cost.toFixed(2) + '</td></tr>' +
+				'<tr><td>Bg-Swap</td><td>' + bgSwap.count + '</td><td>$' + bgSwap.cost.toFixed(2) + '</td></tr>' +
 				'<tr style="font-weight:bold;"><td>Total</td><td>' +
 				data.total_images + '</td><td>$' + data.total_cost.toFixed(2) + '</td></tr>' +
 				'</tbody></table>' +
